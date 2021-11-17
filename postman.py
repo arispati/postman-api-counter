@@ -20,7 +20,7 @@ def main(jsonFile, rootFolder):
         if index != None:
             node = node[index]['item']
         else:
-            print("{} folder can't be find".format(rootFolder))
+            print("Root folder '{}' can not be found".format(rootFolder))
             sys.exit(0)
     
     countNode(node)
