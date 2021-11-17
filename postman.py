@@ -23,7 +23,7 @@ def main(jsonFile, rootFolder):
             print("Root folder '{}' can not be found".format(rootFolder))
             sys.exit(0)
     
-    countNode(node)
+    countTheAPI(node)
 
     print("Total API: {}".format(apiCount))
 
@@ -32,14 +32,14 @@ def findIndex(nodes, search):
         if node['name'] == search:
             return index
 
-def countNode(nodes):
+def countTheAPI(nodes):
     global apiCount
 
     for node in nodes:
         if node.has_key('request'):
             apiCount += 1
         else:
-            countNode(node['item'])
+            countTheAPI(node['item'])
 
 if __name__ == "__main__":
     main(args.file, args.folder)
