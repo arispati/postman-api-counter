@@ -7,7 +7,7 @@ parser.add_argument('file', help="JSON file path")
 parser.add_argument('folder', help="Root folder to be count", nargs='?', default=None)
 args = parser.parse_args()
 
-requestCount = 0
+apiCount = 0
 
 def main(jsonFile, rootFolder):
     file = open(jsonFile)
@@ -25,7 +25,7 @@ def main(jsonFile, rootFolder):
     
     countNode(node)
 
-    print("Total API: {}".format(requestCount))
+    print("Total API: {}".format(apiCount))
 
 def findIndex(nodes, search):
     for index, node in enumerate(nodes):
@@ -33,11 +33,11 @@ def findIndex(nodes, search):
             return index
 
 def countNode(nodes):
-    global requestCount
+    global apiCount
 
     for node in nodes:
         if node.has_key('request'):
-            requestCount += 1
+            apiCount += 1
         else:
             countNode(node['item'])
 
