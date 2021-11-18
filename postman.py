@@ -60,7 +60,7 @@ def countTheAPI(nodes):
   for node in nodes:
     if node.has_key('request'):
       apiCount += 1
-    else:
+    elif node.has_key('item'):
       countTheAPI(node['item'])
 
 if __name__ == "__main__":
