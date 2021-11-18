@@ -22,8 +22,13 @@ def counter(nodes):
   print("Total API: {}".format(apiCount))
 
 def showList(nodes):
+  hasFolder = False
   for node in nodes:
-    print(node['name'])
+    if node.has_key('request') == False:
+      hasFolder = True
+      print(node['name'])
+  if hasFolder == False:
+    print("The current path has no folder!")
 
 def getRootNodes(nodes, rootFolder):
   if (rootFolder == None):
