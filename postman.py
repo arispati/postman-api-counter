@@ -6,6 +6,7 @@ parser = argparse.ArgumentParser(description="Postman API request counter")
 parser.add_argument('file', help="JSON file path")
 parser.add_argument('folder', help="Root folder to be count", nargs='?', default=None)
 parser.add_argument('-l', '--list', help="Show folder list", action="store_true")
+parser.add_argument('-r', '--request', help="Show Request", action="store_true")
 args = parser.parse_args()
 apiCount = 0
 
@@ -14,6 +15,8 @@ def main(jsonFile, rootFolder):
   rootNodes = getRootNodes(jsonData, rootFolder)
   if args.list:
     showList(rootNodes)
+  elif args.request:
+    showRequest(rootNodes)
   else:
     counter(rootNodes)
 
@@ -29,6 +32,20 @@ def showList(nodes):
       print(node['name'])
   if hasFolder == False:
     print("The current path has no folder!")
+
+def showRequest(nodes):
+  for node in nodes:
+    if node.has_key('request') == True:
+      if node['request'].has_key('url'):
+        if hasattr(node['request']['url'], "__iter__"):
+          url = node['request']['url']['raw']
+        else :
+          url = node['request']['url']
+      else:
+        url = ''
+      print("{}: {}".format(node['request']['method'], url))
+    else:
+      showRequest(node['item'])
 
 def getRootNodes(nodes, rootFolder):
   if (rootFolder == None):
